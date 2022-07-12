@@ -11,7 +11,7 @@ int comio = 0;
 int comidaRestaurada = 2;
 int derrochandoEnergia = 0;
 
-pthread_mutex_t tenedor[];
+pthread_mutex_t tenedor[15];
 
 int main(void)
 {
@@ -27,9 +27,9 @@ int main(void)
     {
         pthread_mutex_init(&tenedor[i], NULL);
     }
-    for (int i = 0; i < numFilosofos; i++)
-    {
-        id[i] = i + 1;
+        for (int i = 0; i < numFilosofos; i++)
+        {
+            id[i] = i + 1;
         pthread_create(&filosofos[i], NULL, &filosofo, &id[i]);
     }
     for (int i = 0; i < numFilosofos; i++)
@@ -51,7 +51,7 @@ void cogiendotenedor(int a, int b)
 // FUNCIÓN: SOLTAR TENEDOR Y SABER CUAL ES
 
 void soltartenedores(int s1, int s2)
-{tenedor
+{
     pthread_mutex_unlock(&tenedor[s1]);
     pthread_mutex_unlock(&tenedor[s2]);
 }
@@ -60,7 +60,7 @@ void soltartenedores(int s1, int s2)
 
 void piensa(int n)
 {
-    printf("AL FILÓSOFO# %d SE LE HA ENVIADO A PENSAR\n,", n);
+    printf("AL FILÓSOFO# %d SE LE HA ENVIADO A PENSAR,\n", n);
     estomagos[n] -= 10;
     comio -= 10;
     derrochandoEnergia += 10;
@@ -68,7 +68,7 @@ void piensa(int n)
     sleep(aleatorio);
 }
 
-// FUNCIÓN DE SECCIÓN CRÍTICA
+// FUNCIÓN DE SECCIÓN CRÍTICA COMER
 
 void comiendo(int arg)
 {
