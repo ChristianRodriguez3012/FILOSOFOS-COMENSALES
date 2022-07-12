@@ -11,7 +11,7 @@ int comio = 0;
 int comidaRestaurada = 2;
 int derrochandoEnergia = 0;
 
-pthread_mutex_t cucharas[];
+pthread_mutex_t tenedor[];
 
 int main(void)
 {
@@ -25,7 +25,7 @@ int main(void)
 
     for (int i = 0; i < numFilosofos; i++)
     {
-        pthread_mutex_init(&cucharas[i], NULL);
+        pthread_mutex_init(&tenedor[i], NULL);
     }
     for (int i = 0; i < numFilosofos; i++)
     {
@@ -40,24 +40,24 @@ int main(void)
     return 0;
 }
 
-
 // FUNCIÓN: COGER TENEDOR Y SABER CUAL ES
-void cogiendocucharas(int a, int b)
+
+void cogiendotenedor(int a, int b)
 {
-    pthread_mutex_lock(&cucharas[b]);
+    pthread_mutex_lock(&tenedor[b]);
     printf("EL FILÓSOFO # %d ESTÁ USANDO LA/LAS CUCHARA/CUCHARAS %d \n", a, b);
 }
 
-
 // FUNCIÓN: SOLTAR TENEDOR Y SABER CUAL ES
-void soltarcucharas(int s1, int s2)
-{
-    pthread_mutex_unlock(&cucharas[s1]);
-    pthread_mutex_unlock(&cucharas[s2]);
+
+void soltartenedores(int s1, int s2)
+{tenedor
+    pthread_mutex_unlock(&tenedor[s1]);
+    pthread_mutex_unlock(&tenedor[s2]);
 }
 
-
 // FUNCIÓN: PENSAR
+
 void piensa(int n)
 {
     printf("AL FILÓSOFO# %d SE LE HA ENVIADO A PENSAR\n,", n);
@@ -68,8 +68,8 @@ void piensa(int n)
     sleep(aleatorio);
 }
 
-
 // FUNCIÓN DE SECCIÓN CRÍTICA
+
 void comiendo(int arg)
 {
     int t1 = arg - 2;
@@ -81,23 +81,23 @@ void comiendo(int arg)
         t2 = numFilosofos - 1;
     }
 
-
     // CORRIGIENDO: DEADLOCK
+
     if (arg == 1)
     {
         sleep(2);
     }
 
-    cogiendocucharas(arg, t1);
-    cogiendocucharas(arg, t2);
+    cogiendotenedor(arg, t1);
+    cogiendotenedor(arg, t2);
 
     printf("FILÓSOFO# %d ESTA COMIENDO \n", arg);
     comida = comida - 250;
     estomagos[arg] += 250;
     comio += 2500;
 
-
     // VERIFICACIÓN: RENOVACIÓN DE RECURSOS
+
     if (comida == 0 && comidaRestaurada > 0)
     {
         printf("COMIDA TOTAL EN LOS ESTÓMAGOS: %d ... \n", comio);
@@ -110,7 +110,7 @@ void comiendo(int arg)
 
     printf("COMPROBANDO EL ESTOMAGO DEL FILÓSOFO # %d: %d ... \n", arg, estomagos[arg]);
     printf("COMIDA RESTANTE: %d ... \n", comida);
-    soltarcucharas(t1, t2);
+    soltartenedores(t1, t2);
 }
 
 void *filosofo(void *arg)
