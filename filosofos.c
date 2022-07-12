@@ -45,7 +45,7 @@ int main(void)
 void cogiendotenedor(int a, int b)
 {
     pthread_mutex_lock(&tenedor[b]);
-    printf("EL FILÓSOFO # %d ESTÁ USANDO LA/LAS CUCHARA/CUCHARAS %d \n", a, b);
+    printf("EL FILÓSOFO # %d ESTÁ USANDO EL TENEDOR/ES %d \n", a, b);
 }
 
 // FUNCIÓN: SOLTAR TENEDOR Y SABER CUAL ES
